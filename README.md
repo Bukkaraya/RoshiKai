@@ -1,2 +1,2 @@
 # RoshiKai
-An improved version of Roshi
+A bot for slack.
