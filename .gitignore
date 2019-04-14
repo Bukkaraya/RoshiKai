@@ -1,0 +1,6 @@
+*.pkl
+*.cbz
+*.kcc
+*.txt
+
+.vscode
