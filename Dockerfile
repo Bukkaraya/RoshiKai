@@ -7,7 +7,7 @@ RUN apt-get install libxslt1-dev -y
 COPY * /home/
 WORKDIR /home/
 
-RUN slack_env
+RUN source slack_env
 RUN pip3 install -r requirements.txt
 
 CMD python3 bot.py
