@@ -1,5 +1,6 @@
 *.pkl
 *.cbz
 *.kcc
+slack_env
 
 .vscode
