@@ -8,7 +8,7 @@ from roshi import Manga, Chapter
 import pickle
 
 
-SERIES = ['One Piece 2', 'Tower of God']
+SERIES = ['One Piece 2']
 
 
 def get_log():
@@ -35,9 +35,8 @@ def send_chapter_to_slack(filename, series, chaptername):
     response = slack_client.api_call(
         "chat.postMessage",
         channel="CBYUFSUFQ",
-        text="New {} chapter. It will be uploaded shortly.".format(s),
-        thread_ts="1476746830.000003"
-        )
+        text="New {} chapter. It will be uploaded shortly. :zoro:".format(s)
+    )
     
     with open('{}.cbz'.format(filename), 'rb') as f:
         response = slack_client.api_call(
@@ -49,10 +48,8 @@ def send_chapter_to_slack(filename, series, chaptername):
 
         print(response)
 
-    
-    
 
-if __name__ == '__main__':
+def check_for_chapters():
     log = get_log()
 
     for s in SERIES:
@@ -74,3 +71,10 @@ if __name__ == '__main__':
         log[s] = latest_number
     
     save_log(log)
+    
+
+if __name__ == '__main__':
+    while True:
+        check_for_chapters()
+        time.sleep(300)
+    
