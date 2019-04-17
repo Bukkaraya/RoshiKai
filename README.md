@@ -5,12 +5,13 @@ The bot can be deployed with Dockerfile.
 
 Docker commands to run bot
 > docker build -t roshikai:latest .
+
 > docker run --rm roshikai:latest
 
 The docker build commands requires a slack_env file.
 A sample for the file is provided below.
 
-slack_env
 ---
 `export SLACK_BOT_TOKEN=<your_slack_token_here>`
+
 `python3 bot.py`
