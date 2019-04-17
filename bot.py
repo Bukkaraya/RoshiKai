@@ -30,6 +30,7 @@ def save_log(log):
 
 def send_chapter_to_slack(filename, series, chaptername):
     slack_token = os.environ.get('SLACK_BOT_TOKEN')
+    print(slack_token)
     slack_client = SlackClient(slack_token)
 
     response = slack_client.api_call(

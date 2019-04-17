@@ -8,6 +8,5 @@ COPY * /home/
 WORKDIR /home/
 
 RUN pip3 install -r requirements.txt
-RUN cat slack_env >> ~/.bashrc
 
-CMD python3 bot.py
+CMD /bin/bash slack_env
