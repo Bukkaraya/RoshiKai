@@ -35,7 +35,7 @@ def send_chapter_to_slack(filename, series, chaptername):
     response = slack_client.api_call(
         "chat.postMessage",
         channel="CBYUFSUFQ",
-        text="New {} chapter. It will be uploaded shortly. :zoro:".format(s)
+        text="New {} chapter. It will be uploaded shortly. :zoro:".format(series)
     )
     
     with open('{}.cbz'.format(filename), 'rb') as f:
