@@ -1,12 +1,14 @@
 # RoshiKai
 A bot for slack.
 
-The bot can be deployed with Dockerfile.
+The bot can be deployed with Docker.
 
 Docker commands to run bot
-> docker build -t roshikai:latest .
 
-> docker run --rm roshikai:latest
+```
+docker build -t roshikai:latest .
+docker run --rm roshikai:latest 
+```
 
 The docker build commands requires a slack_env file.
 A sample for the file is provided below.
