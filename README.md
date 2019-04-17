@@ -1,12 +1,13 @@
 # RoshiKai
 A bot for slack.
 
-The bot can be deployed with Docker.
-
-Docker commands to run bot
-
 Todo:
 - [ ] Add a Jenkins job to automatically deploy the bot
+
+
+The bot can be deployed with Docker.
+
+**Docker commands to run bot**
 
 ```
 docker build -t roshikai:latest .
