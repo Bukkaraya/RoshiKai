@@ -5,6 +5,9 @@ The bot can be deployed with Docker.
 
 Docker commands to run bot
 
+Todo:
+[ ] - Add a Jenkins job to automatically deploy the bot
+
 ```
 docker build -t roshikai:latest .
 docker run --rm roshikai:latest 
