@@ -44,6 +44,7 @@ def send_chapter_to_slack(filename, series, chaptername):
             'files.upload',
             channels='CBYUFSUFQ',
             file=io.BytesIO(f.read()),
+            filename="{}".format(filename),
             title="{}".format(chaptername)
         )
 
