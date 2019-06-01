@@ -3,7 +3,7 @@ import time
 import re
 import io
 import subprocess
-from slackclient import SlackClient
+from slack import SlackClient
 from roshi import Manga, Chapter
 import pickle
 
@@ -27,7 +27,7 @@ def save_log(log):
     with open("chapter_log.pkl", "wb") as file:
         pickle.dump(log, file)
 
-
+	
 def send_chapter_to_slack(filename, series, chaptername):
     slack_token = os.environ.get('SLACK_BOT_TOKEN')
     print(slack_token)
