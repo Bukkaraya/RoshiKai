@@ -3,12 +3,17 @@ import time
 import re
 import io
 import subprocess
-from slack import SlackClient
+from slack import WebClient
 from roshi import Manga, Chapter
 import pickle
 
+DEBUG = True
+SLACK_CHANNEL = "#roshi"
 
 SERIES = ['One Piece 2']
+
+if DEBUG:
+    SLACK_CHANNEL = "#test"
 
 
 def get_log():
@@ -30,25 +35,25 @@ def save_log(log):
 	
 def send_chapter_to_slack(filename, series, chaptername):
     slack_token = os.environ.get('SLACK_BOT_TOKEN')
-    print(slack_token)
-    slack_client = SlackClient(slack_token)
 
-    response = slack_client.api_call(
-        "chat.postMessage",
-        channel="CBYUFSUFQ",
+    slack_client = WebClient(slack_token)
+
+    response = slack_client.chat_postMessage(
+        channel=SLACK_CHANNEL,
         text="New {} chapter. It will be uploaded shortly. :zoro:".format(series)
     )
+
+    assert response["ok"]
     
     with open('{}.cbz'.format(filename), 'rb') as f:
-        response = slack_client.api_call(
-            'files.upload',
-            channels='CBYUFSUFQ',
+        response = slack_client.files_upload(
+            channels=SLACK_CHANNEL,
             file=io.BytesIO(f.read()),
             filename="{}.cbz".format(filename),
             title="{}".format(chaptername)
         )
 
-        print(response)
+        assert response["ok"]
 
 
 def check_for_chapters():
@@ -77,6 +82,8 @@ def check_for_chapters():
 
 if __name__ == '__main__':
     while True:
+        print("Checking for chapters...")
         check_for_chapters()
-        time.sleep(300)
+        print("Sleeping for 30 mins.")
+        time.sleep(1800)
     
