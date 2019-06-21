@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import os
 import time
 import re
@@ -7,7 +9,7 @@ from slack import WebClient
 from roshi import Manga, Chapter
 import json
 
-DEBUG = False
+DEBUG = os.environ.get("DEBUG")
 SLACK_CHANNEL = "#roshi"
 HISTORY_DIR = ".history"
 HISTORY_FILE = "chapter_history.json"
@@ -15,7 +17,7 @@ HISTORY_FILE_PATH = os.path.join(HISTORY_DIR, HISTORY_FILE)
 
 SERIES = ['One Piece 2']
 
-if DEBUG:
+if DEBUG == "True":
     SLACK_CHANNEL = "#test"
 
 
@@ -31,8 +33,9 @@ def get_log():
         return log
     
     with open(HISTORY_FILE_PATH, "r") as file:
-        log = json.loads("")
-    
+        file_content = file.read()
+        log = json.loads(file_content)
+
     return log
 
 
@@ -95,6 +98,5 @@ if __name__ == '__main__':
         print("Checking for chapters...")
         check_for_chapters()
         print("Sleeping for 30 mins.")
-        #time.sleep(1800)
-        break
+        time.sleep(1800)
     
