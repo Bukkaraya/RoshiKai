@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import os
 import time
 import re
@@ -5,32 +7,41 @@ import io
 import subprocess
 from slack import WebClient
 from roshi import Manga, Chapter
-import pickle
+import json
 
-DEBUG = True
+DEBUG = os.environ.get("DEBUG")
 SLACK_CHANNEL = "#roshi"
+HISTORY_DIR = ".history"
+HISTORY_FILE = "chapter_history.json"
+HISTORY_FILE_PATH = os.path.join(HISTORY_DIR, HISTORY_FILE)
 
 SERIES = ['One Piece 2']
 
-if DEBUG:
+if DEBUG == "True":
     SLACK_CHANNEL = "#test"
+
+
+def init_log_dir():
+    if not os.path.exists(HISTORY_DIR):
+        os.makedirs(HISTORY_DIR)
 
 
 def get_log():
     log = {}
 
-    if(not os.path.exists("chapter_log.pkl")):
+    if(not os.path.exists(HISTORY_FILE_PATH)):
         return log
     
-    with open("chapter_log.pkl", "rb") as file:
-        log = pickle.load(file)
-    
+    with open(HISTORY_FILE_PATH, "r") as file:
+        file_content = file.read()
+        log = json.loads(file_content)
+
     return log
 
 
 def save_log(log):
-    with open("chapter_log.pkl", "wb") as file:
-        pickle.dump(log, file)
+    with open(HISTORY_FILE_PATH, "w") as file:
+        file.write(json.dumps(log))
 
 	
 def send_chapter_to_slack(filename, series, chaptername):
@@ -57,6 +68,8 @@ def send_chapter_to_slack(filename, series, chaptername):
 
 
 def check_for_chapters():
+    init_log_dir()
+
     log = get_log()
 
     for s in SERIES:
