@@ -2,5 +2,6 @@
 *.cbz
 *.kcc
 slack_env
+.history
 
 .vscode

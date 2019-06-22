@@ -14,8 +14,9 @@ SLACK_CHANNEL = "#roshi"
 HISTORY_DIR = ".history"
 HISTORY_FILE = "chapter_history.json"
 HISTORY_FILE_PATH = os.path.join(HISTORY_DIR, HISTORY_FILE)
-
 SERIES = ['One Piece 2']
+SLEEP_TIME = 1800
+
 
 if DEBUG == "True":
     SLACK_CHANNEL = "#test"
@@ -82,12 +83,12 @@ def check_for_chapters():
             if(logged_chapter_num >= latest_number):
                 print("Skipping Chapter for {}...".format(s))
                 continue
-        
+
         print("Getting latest {} chapter...".format(s))
         manga_series.get_latest()
         print("Sending to slack...")
         send_chapter_to_slack(chapter.name, s, "{} - {}".format(s, chapter.name))
-        
+
         log[s] = latest_number
     
     save_log(log)
@@ -98,5 +99,5 @@ if __name__ == '__main__':
         print("Checking for chapters...")
         check_for_chapters()
         print("Sleeping for 30 mins.")
-        time.sleep(1800)
+        time.sleep(SLEEP_TIME)
     
